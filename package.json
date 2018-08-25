@@ -1,0 +1,42 @@
+{
+  "name": "codepipeline-s3-deploy",
+  "version": "1.0.0",
+  "description": "Deploy AWS CodePipeline artifacts to S3",
+  "main": "./src/index.js",
+  "author": "Sami Tanbouz",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Tanbouz/codepipeline-s3-deploy"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "build": "mkdir -p dist && cp -R src/* package.json dist/ && cd dist && npm install --production",
+    "package": "aws cloudformation package --template-file ./dist/template.yml --s3-bucket ? --output-template-file ./dist/packaged.yml",
+    "deploy": "aws cloudformation deploy --parameter-overrides FunctionName=CodePipelineS3Deploy TargetBucket=? ArtifactStore=? --template-file ./dist/packaged.yml --stack-name codepipeline-s3-deploy --capabilities CAPABILITY_NAMED_IAM --region=eu-west-1",
+    "test": "mocha -u tdd --timeout 5000 ./test/*_test.js",
+    "test-aws": "mocha -u tdd --timeout 20000 ./test/*_aws-test.js",
+    "test-zip": "cd test/reference/raw && zip -r ../test.zip *",
+    "test-tgz": "cd test/reference/raw && tar -czf ../test.tgz *",
+    "test-targz": "cd test/reference/raw && tar -czf ../test.tar.gz *",
+    "test-gz": "cd test/reference/raw && gzip -c test-1.txt > ../test.gz",
+    "test-tar": "cd test/reference/raw && tar -cf ../test.tar *",
+    "test-tarbz2": "cd test/reference/raw && tar -cjf ../test.tar.bz2 *",
+    "test-generate-references": "yarn test-zip && yarn test-tgz && yarn test-targz && yarn test-gz && yarn test-tar && yarn test-tarbz2"
+  },
+  "dependencies": {
+    "jszip": "3.1.5",
+    "md5": "^2.2.1",
+    "mime-types": "^2.1.19",
+    "tar-stream": "^1.6.1"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.298.0",
+    "chai": "4.1.2",
+    "globby": "^8.0.1",
+    "mocha": "5.0.0"
+  }
+}

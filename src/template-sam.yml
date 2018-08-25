@@ -12,7 +12,7 @@ Parameters:
     Type: String
     Description: The target S3 bucket to deploy to.
 Resources:
-  CodePipelineArtifactMergeFunction:
+  CodePipelineS3DeployFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
       FunctionName: !Ref FunctionName

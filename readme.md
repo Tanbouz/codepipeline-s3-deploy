@@ -1,6 +1,6 @@
 ## Deploy AWS CodePipeline artifacts to S3
 
-Unwraps compressed input artifact(s) and deploys the files to a S3 bucket with mime types. It attempts to deploy modified files by checking S3 object Etag against md5 hash of the data. You can optionally invalidate CloudFront after deployment.
+Unwraps compressed input artifact(s) and deploys the files to a S3 bucket with mime types. It attempts to only deploy modified files by checking S3 object Etag against md5 hash of the data. You can optionally invalidate CloudFront after deployment.
 
 #### You probably don't need this!
 
@@ -26,12 +26,12 @@ Example:
 {"prefix": "stuff/", "invalidate": true, "distributionId": "E12ABCDEF4TEST", "targetBucketName": "some-bucket"}
 ```
 
-#### Deployment options
+#### Deployment
 
 1. AWS Application Repository - limited by SAM policy templates (template-sam.yml)
 2. Manual through aws cli or sam cli (template.yml).
 
-To deploy, edit package.json with desired ArtifactStore bucket name and Target Bucket to deploy to
+Deploy manually - substitute `???` with bucket names and the region being used.
 
 ```
 yarn -i

@@ -26,10 +26,8 @@ Resources:
         Variables:
           TARGET_BUCKET: !Ref TargetBucket
       Policies:
-        - Version: '2012-10-17'
-          Statement:
-            - S3CrudPolicy:
-                BucketName: !Ref ArtifactStore
-            - S3CrudPolicy:
-                BucketName: !Ref TargetBucket
-            - CodePipelineLambdaExecutionPolicy: {}
+        - S3CrudPolicy:
+            BucketName: !Ref ArtifactStore
+        - S3CrudPolicy:
+            BucketName: !Ref TargetBucket
+        - CodePipelineLambdaExecutionPolicy: {}

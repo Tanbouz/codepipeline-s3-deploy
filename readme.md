@@ -1,6 +1,6 @@
 ## Deploy AWS CodePipeline artifacts to S3
 
-Unwraps compressed input artifact(s) and deploys the files to a S3 bucket with mime types. It attempts to only deploy modified files by checking S3 object Etag against md5 hash of the data. You can optionally invalidate CloudFront after deployment.
+Unwraps compressed input artifact(s) and deploys the files to an S3 bucket with mime types. It attempts to only deploy modified files by checking S3 object Etag against the md5 hash of the data. You can optionally invalidate CloudFront after deployment.
 
 #### You probably don't need this!
 
@@ -28,7 +28,7 @@ Example:
 
 #### Deployment
 
-1. AWS Application Repository - limited by SAM policy templates (template-sam.yml)
+1. [AWS Application Repository](https://serverlessrepo.aws.amazon.com/#/applications/arn:aws:serverlessrepo:us-east-1:775015977546:applications~codepipeline-s3-deploy) - limited by SAM policy templates (template-sam.yml)
 2. Manual through aws cli or sam cli (template.yml).
 
 Deploy manually - substitute `???` with bucket names and the region being used.
@@ -59,6 +59,6 @@ yarn build && yarn package && yarn deploy
 
 #### Limitations & Notes
 * Etag / md5 checking doesn't work on server side encrypted objects.
-* You can't create a pipeline in CodePipeline without having at least a CodeDeploy or CodeBuild stage (in case you want to pipe S3 source direct to this function)
+* You can't create a pipeline in CodePipeline without having at least a CodeDeploy or CodeBuild stage (in case you want to pipe S3 source direct to this function) but you can workaround it by creating a CodeBuild stage as the last stage then "Disable transition" through the arrow between stages in CodePipeline's console.
 * AWS Application Repository - you have to manually add missing IAM permissions included in `template.yml` but not `template-sam.yml` for CodePipeline (until a AWS SAM bug is fixed) and optionally for CloudFront if you wish to use invalidation.
 * Limit S3 IAM permissions if using `template.yml` from Resource "*" to ARNs of the buckets used.

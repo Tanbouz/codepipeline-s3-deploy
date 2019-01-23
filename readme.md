@@ -1,10 +1,13 @@
+#### You probably don't need this!
+
+Update 2019: [AWS CodePipeline Now Supports Deploying to Amazon S3](https://aws.amazon.com/about-aws/whats-new/2019/01/aws-codepipeline-now-supports-deploying-to-amazon-s3)
+
+Or you can simply use [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) and [`aws cloudfront create-invalidation`](https://docs.aws.amazon.com/cli/latest/reference/cloudfront/create-invalidation.html) in AWS CodeBuild
+
 ## Deploy AWS CodePipeline artifacts to S3
 
 Unwraps compressed input artifact(s) and deploys the files to an S3 bucket with mime types. It attempts to only deploy modified files by checking S3 object Etag against the md5 hash of the data. You can optionally invalidate CloudFront after deployment.
 
-#### You probably don't need this!
-
-You can simply use [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) and [`aws cloudfront create-invalidation`](https://docs.aws.amazon.com/cli/latest/reference/cloudfront/create-invalidation.html) in AWS CodeBuild
 
 #### Optional parameters
 
